@@ -13,7 +13,7 @@ class GovernanceChecklist {
                 items: [
                     {
                         id: "0.1",
-                        description: "Have we defined the precise accounting task the AI will support (e.g. lease classification, variance commentary)?",
+                        description: "Have we defined the precise accountancy task the AI will support (e.g. lease classification, variance commentary)?",
                         evidence: "Business-case document",
                         status: "pending"
                     },
@@ -109,7 +109,7 @@ class GovernanceChecklist {
                     },
                     {
                         id: "3.3",
-                        description: "Is an \"explainability\" report available in plain English for non-tech reviewers?",
+                        description: "Is an \"explainability\" report available in plain English for non-technical reviewers?",
                         evidence: "Explain-AI.pdf",
                         status: "pending"
                     }
@@ -561,7 +561,7 @@ class GovernanceChecklist {
                         <button class="export-option-btn" data-format="csv">
                             <div class="export-option-icon">📊</div>
                             <div class="export-option-label">CSV</div>
-                            <div class="export-option-desc">For Excel or spreadsheet software</div>
+                            <div class="export-option-desc">For Excel or spreadsheet programmes</div>
                         </button>
                     </div>
                 </div>
@@ -848,7 +848,7 @@ Navigation:
 
 Export Options:
 - JSON: For developers or data import
-- CSV: For Excel or spreadsheet applications`);
+- CSV: For Excel or spreadsheet programmes`);
 }
 
 // Add service worker for offline functionality (optional)
