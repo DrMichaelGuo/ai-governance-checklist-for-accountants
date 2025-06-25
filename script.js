@@ -785,6 +785,37 @@ function updateItemEvidence(itemId, evidence) {
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.checklistApp = new GovernanceChecklist();
+    
+    // Set up How to Use modal
+    const modal = document.getElementById('how-to-use-modal');
+    const howToUseBtn = document.getElementById('how-to-use-btn');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    howToUseBtn.addEventListener('click', () => {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; // Re-enable scrolling
+    });
+    
+    // Close modal when clicking outside of it
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    });
 
     // Add navbar scroll effect
     let lastScrollTop = 0;

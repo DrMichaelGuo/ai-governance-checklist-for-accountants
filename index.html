@@ -17,7 +17,6 @@
                 <h2>AI Governance</h2>
             </div>
             <div class="nav-menu">
-                <a href="#overview" class="nav-link">Overview</a>
                 <a href="#checklist" class="nav-link">Checklist</a>
                 <a href="#progress" class="nav-link">Progress</a>
             </div>
@@ -31,6 +30,7 @@
                 <h1 class="hero-title">AI Governance Checklist</h1>
                 <h2 class="hero-subtitle">for Accountancy Firms</h2>
                 <p class="hero-description">A framework to ensure responsible AI implementation in accountancy practices</p>
+                <button id="how-to-use-btn" class="hero-btn">How to use this checklist</button>
                 <div class="hero-stats">
                     <div class="stat">
                         <span class="stat-number" id="total-items">84</span>
@@ -45,50 +45,6 @@
                         <span class="stat-label">Progress</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How to Use Section -->
-    <section class="how-to-use" id="overview">
-        <div class="container">
-            <h2 class="section-title">How to use this checklist</h2>
-            <div class="legend-grid">
-                <div class="legend-item">
-                    <div class="legend-symbol pending">☐</div>
-                    <div class="legend-content">
-                        <h4>Pending</h4>
-                        <p>Item not yet started</p>
-                        <span class="legend-action">Assign an owner & due date</span>
-                    </div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-symbol in-progress">🟡</div>
-                    <div class="legend-content">
-                        <h4>In Progress</h4>
-                        <p>Partially complete</p>
-                        <span class="legend-action">Document interim controls</span>
-                    </div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-symbol complete">✅</div>
-                    <div class="legend-content">
-                        <h4>Complete</h4>
-                        <p>Evidence held & reviewed</p>
-                        <span class="legend-action">Schedule next review</span>
-                    </div>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-symbol na">❌</div>
-                    <div class="legend-content">
-                        <h4>N/A</h4>
-                        <p>Not applicable to this engagement</p>
-                        <span class="legend-action">Record rationale</span>
-                    </div>
-                </div>
-            </div>
-            <div class="tip-box">
-                <strong>Tip:</strong> Copy the checklist into your own worksheet or project-management programme and replace the status symbols as you work.
             </div>
         </div>
     </section>
@@ -130,6 +86,55 @@
         </div>
     </footer>
 
+    <!-- How to Use Modal -->
+    <div id="how-to-use-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>How to use this checklist</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="legend-symbol pending">☐</div>
+                        <div class="legend-content">
+                            <h4>Pending</h4>
+                            <p>Item not yet started</p>
+                            <span class="legend-action">Assign an owner & due date</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol in-progress">🟡</div>
+                        <div class="legend-content">
+                            <h4>In Progress</h4>
+                            <p>Partially complete</p>
+                            <span class="legend-action">Document interim controls</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol complete">✅</div>
+                        <div class="legend-content">
+                            <h4>Complete</h4>
+                            <p>Evidence held & reviewed</p>
+                            <span class="legend-action">Schedule next review</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-symbol na">❌</div>
+                        <div class="legend-content">
+                            <h4>N/A</h4>
+                            <p>Not applicable to this engagement</p>
+                            <span class="legend-action">Record rationale</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tip-box">
+                    <strong>Tip:</strong> Copy the checklist into your own worksheet or project-management programme and replace the status symbols as you work.
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
