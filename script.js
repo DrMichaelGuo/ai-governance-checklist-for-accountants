@@ -522,7 +522,7 @@ class GovernanceChecklist {
         if (navMenu && !document.getElementById('export-btn')) {
             const exportBtn = document.createElement('button');
             exportBtn.id = 'export-btn';
-            exportBtn.textContent = 'Export';
+            exportBtn.textContent = 'Export Data';
             exportBtn.className = 'nav-link export-btn';
             exportBtn.style.cssText = `
                 background: var(--primary-blue);
@@ -539,6 +539,154 @@ class GovernanceChecklist {
     }
 
     exportData() {
+        const today = new Date().toISOString().split('T')[0];
+        
+        // Create modal for export options
+        const modal = document.createElement('div');
+        modal.className = 'export-modal';
+        modal.innerHTML = `
+            <div class="export-modal-content">
+                <div class="export-modal-header">
+                    <h3>Export Checklist Data</h3>
+                    <button class="export-close-btn">&times;</button>
+                </div>
+                <div class="export-modal-body">
+                    <p>Choose an export format:</p>
+                    <div class="export-options">
+                        <button class="export-option-btn" data-format="json">
+                            <div class="export-option-icon">📄</div>
+                            <div class="export-option-label">JSON</div>
+                            <div class="export-option-desc">For developers or data import</div>
+                        </button>
+                        <button class="export-option-btn" data-format="csv">
+                            <div class="export-option-icon">📊</div>
+                            <div class="export-option-label">CSV</div>
+                            <div class="export-option-desc">For Excel or spreadsheet software</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        const closeBtn = modal.querySelector('.export-close-btn');
+        closeBtn.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        // Close when clicking outside modal content
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+            }
+        });
+
+        // Export option buttons event listeners
+        const exportButtons = modal.querySelectorAll('.export-option-btn');
+        exportButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const format = button.getAttribute('data-format');
+                document.body.removeChild(modal);
+                
+                // Handle different export formats
+                if (format === 'json') {
+                    this.exportAsJSON(today);
+                } else if (format === 'csv') {
+                    this.exportAsCSV(today);
+                }
+            });
+        });
+
+        // Style the modal
+        const style = document.createElement('style');
+        style.textContent = `
+            .export-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+            .export-modal-content {
+                background-color: white;
+                border-radius: 12px;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                animation: modal-slide-up 0.3s ease;
+            }
+            .export-modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px 24px;
+                border-bottom: 1px solid #eee;
+            }
+            .export-modal-header h3 {
+                margin: 0;
+                font-weight: 500;
+            }
+            .export-close-btn {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #555;
+            }
+            .export-modal-body {
+                padding: 24px;
+            }
+            .export-options {
+                display: flex;
+                gap: 16px;
+                margin-top: 16px;
+            }
+            .export-option-btn {
+                flex: 1;
+                background-color: #f8f8f8;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 16px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .export-option-btn:hover {
+                background-color: #f0f0f0;
+                border-color: var(--primary-blue);
+            }
+            .export-option-icon {
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            .export-option-label {
+                font-weight: 500;
+                margin-bottom: 4px;
+            }
+            .export-option-desc {
+                font-size: 12px;
+                color: #666;
+            }
+            @keyframes modal-slide-up {
+                from { transform: translateY(20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        
+        document.head.appendChild(style);
+    }
+    
+    exportAsJSON(date) {
         const exportData = {
             exportDate: new Date().toISOString(),
             sections: this.checklistData.map(section => ({
@@ -556,10 +704,37 @@ class GovernanceChecklist {
         const blob = new Blob([JSON.stringify(exportData, null, 2)], {
             type: 'application/json'
         });
+        
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `ai-governance-checklist-${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `ai-governance-checklist-${date}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    
+    exportAsCSV(date) {
+        // Prepare CSV header
+        let csv = 'Section ID,Section Title,Item ID,Description,Status,Evidence\n';
+        
+        // Add data rows
+        this.checklistData.forEach(section => {
+            section.items.forEach(item => {
+                // Properly escape fields for CSV format
+                const escapedDescription = `"${item.description.replace(/"/g, '""')}"`;
+                const escapedEvidence = `"${item.evidence.replace(/"/g, '""')}"`;
+                
+                csv += `${section.id},"${section.title}",${item.id},${escapedDescription},${item.status},${escapedEvidence}\n`;
+            });
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ai-governance-checklist-${date}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -663,13 +838,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function showKeyboardShortcuts() {
     alert(`Keyboard Shortcuts:
     
-Ctrl/Cmd + E: Export data
+Ctrl/Cmd + E: Open export options
 Ctrl/Cmd + /: Show this help
     
 Navigation:
 - Use Tab to navigate between form elements
 - Use Space/Enter to toggle dropdowns
-- Use arrow keys in dropdowns`);
+- Use arrow keys in dropdowns
+
+Export Options:
+- JSON: For developers or data import
+- CSV: For Excel or spreadsheet applications`);
 }
 
 // Add service worker for offline functionality (optional)
