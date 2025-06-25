@@ -13,7 +13,7 @@ class GovernanceChecklist {
                 items: [
                     {
                         id: "0.1",
-                        description: "Have we defined the precise accountancy task the AI will support (e.g. lease classification, variance commentary)?",
+                        description: "Have we defined the precise task the AI will support?",
                         evidence: "Business-case document",
                         status: "pending"
                     },
@@ -187,7 +187,7 @@ class GovernanceChecklist {
                 items: [
                     {
                         id: "7.1",
-                        description: "Does the workflow preserve IFAC and IESBA Code principles (integrity, objectivity etc.)?",
+                        description: "Does the workflow uphold ethical principles such as integrity and objectivity, as set out in applicable professional codes of conduct?",
                         evidence: "Ethics checklist",
                         status: "pending"
                     },
@@ -219,17 +219,17 @@ class GovernanceChecklist {
             },
             {
                 id: 9,
-                title: "Vendor & Contract Management",
+                title: "Third-Party & Contract Management",
                 items: [
                     {
                         id: "9.1",
-                        description: "Has the vendor's security posture been independently assessed (ISO 27001, SOC 2)?",
+                        description: "Has the third party’s security and compliance posture been independently reviewed (e.g. recognised certifications or audits)?",
                         evidence: "Due-diligence file",
                         status: "pending"
                     },
                     {
                         id: "9.2",
-                        description: "Does the contract include right-to-audit and data-return clauses?",
+                        description: "Does the agreement include provisions for audit rights, data access, and return or deletion on exit?",
                         evidence: "Contract.pdf",
                         status: "pending"
                     }
